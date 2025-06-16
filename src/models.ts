@@ -87,14 +87,12 @@ export type NutrientCalc = {
 
 export const calculate_nutrients = (y: number): NutrientCalc => ({
 	uptake: nutrientsList.map(
-		(nutrient) =>
-			[nutrient, calc_nutrient(totalUptake[nutrient], y)] as const
+		(nutrient) => [nutrient, calc_nutrient(totalUptake[nutrient], y)] as const,
 	),
 	removal: nutrientsList.map(
-		(nutrient) =>
-			[nutrient, calc_nutrient(totalRemoval[nutrient], y)] as const
+		(nutrient) => [nutrient, calc_nutrient(totalRemoval[nutrient], y)] as const,
 	),
 	stover: nutrientsList.map(
-		(nutrient) => [nutrient, removalInStover[nutrient].value] as const
+		(nutrient) => [nutrient, removalInStover[nutrient].value] as const,
 	),
 });

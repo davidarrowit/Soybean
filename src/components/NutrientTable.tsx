@@ -17,7 +17,7 @@ export const NutrientTable: FC<Props> = ({ calc }) => {
 					<div className="text-red-600" key={name}>
 						{name}: {value.toFixed(3)}
 					</div>
-				)
+				),
 			)}
 		</div>
 	);

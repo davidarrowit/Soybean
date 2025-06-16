@@ -6,4 +6,3 @@ const Home: FC = () => {
 };
 
 export default Home;
-
