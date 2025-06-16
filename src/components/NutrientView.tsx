@@ -1,6 +1,8 @@
-import { FC } from "react";
+import type { FC } from "react";
+
 import { NutrientTable } from "./NutrientTable";
-import { IndividualCalc, Nutrients } from "@/models";
+
+import type { IndividualCalc } from "@/models";
 
 type Props = {
 	calc: IndividualCalc;

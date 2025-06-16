@@ -1,5 +1,5 @@
-import { FC } from "react";
 import Form from "next/form";
+import type { FC } from "react";
 
 export const InputForm: FC = () => {
 	return (

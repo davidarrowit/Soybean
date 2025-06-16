@@ -1,11 +1,14 @@
 "use client";
 
 import { redirect, useSearchParams } from "next/navigation";
-import { FC } from "react";
-import { ResultsView } from "./ResultsView";
-import { calculate_nutrients, NutrientCalc } from "@/models";
+import type { FC } from "react";
+
 import { CopyToClipboard } from "./CopyToClipboard";
 import { EmailResults } from "./EmailResults";
+import { ResultsView } from "./ResultsView";
+
+import type { NutrientCalc } from "@/models";
+import { calculate_nutrients } from "@/models";
 
 const renderCalc = (calc: NutrientCalc): string => {
 	return JSON.stringify(calc);
@@ -14,7 +17,7 @@ const renderCalc = (calc: NutrientCalc): string => {
 export const Results: FC = () => {
 	const params = useSearchParams();
 	const soybeanYield = params.get("yield");
-	if (typeof soybeanYield != "string") {
+	if (typeof soybeanYield !== "string") {
 		redirect("/");
 	}
 	const n = Number.parseFloat(soybeanYield);

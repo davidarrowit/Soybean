@@ -1,6 +1,7 @@
-import { Results } from "@/components/Results";
 import Link from "next/link";
 import { Suspense, type FC } from "react";
+
+import { Results } from "@/components/Results";
 
 const ResultsPage: FC = () => {
 	return (

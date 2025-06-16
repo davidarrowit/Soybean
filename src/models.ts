@@ -19,7 +19,7 @@ export type Nutrients = {
 };
 
 const totalUptake: Nutrients = {
-	N: { coefficients: [3.75, +1.94], se: 20.0, r2: 0.8 },
+	N: { coefficients: [3.75, +1.94], se: 20, r2: 0.8 },
 	P2O5: { coefficients: [0.9, +1.01], se: 6.7, r2: 0.7 },
 	K2O: { coefficients: [2.3, +15.62], se: 23.7, r2: 0.53 },
 	S: { coefficients: [0.21, +1.83], se: 2.1, r2: 0.58 },
@@ -33,12 +33,12 @@ const totalUptake: Nutrients = {
 };
 
 const totalRemoval: Nutrients = {
-	N: { coefficients: [3.3, -10.35], se: 13.0, r2: 0.89 },
+	N: { coefficients: [3.3, -10.35], se: 13, r2: 0.89 },
 	P2O5: { coefficients: [0.74, -0.32], se: 2.9, r2: 0.89 },
 	K2O: { coefficients: [1.17, +4.2], se: 3.9, r2: 0.92 },
-	S: { coefficients: [0.16, +0.41], se: 1.0, r2: 0.76 },
+	S: { coefficients: [0.16, +0.41], se: 1, r2: 0.76 },
 	Mg: { coefficients: [0.16, -0.21], se: 0.7, r2: 0.88 },
-	Ca: { coefficients: [0.12, +0.98], se: 1.0, r2: 0.67 },
+	Ca: { coefficients: [0.12, +0.98], se: 1, r2: 0.67 },
 	Zn: { coefficients: [0.002, -0.009], se: 0.02, r2: 0.59 },
 	Mn: { coefficients: [0.002, +0.009], se: 0.02, r2: 0.51 },
 	Cu: { coefficients: [0.001, -0.017], se: 0.01, r2: 0.66 },

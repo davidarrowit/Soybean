@@ -1,6 +1,8 @@
-import { NutrientCalc } from "@/models";
 import type { FC } from "react";
+
 import { NutrientView } from "./NutrientView";
+
+import type { NutrientCalc } from "@/models";
 
 type Props = {
 	calc: NutrientCalc;

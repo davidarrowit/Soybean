@@ -1,5 +1,4 @@
-import { NutrientCalc } from "@/models";
-import { FC } from "react";
+import type { FC } from "react";
 
 type Props = {
 	text: string;
@@ -8,7 +7,7 @@ type Props = {
 export const CopyToClipboard: FC<Props> = ({ text }) => {
 	return (
 		<div>
-			<button onClick={() => navigator.clipboard.writeText(text)}>
+			<button onClick={() => void navigator.clipboard.writeText(text)}>
 				Copy Results
 			</button>
 		</div>

@@ -1,5 +1,6 @@
-import { IndividualCalc } from "@/models";
-import { FC } from "react";
+import type { FC } from "react";
+
+import type { IndividualCalc } from "@/models";
 
 type Props = {
 	calc: IndividualCalc;
