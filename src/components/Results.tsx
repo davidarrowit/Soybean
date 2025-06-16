@@ -3,6 +3,13 @@
 import { redirect, useSearchParams } from "next/navigation";
 import { FC } from "react";
 import { ResultsView } from "./ResultsView";
+import { calculate_nutrients, NutrientCalc } from "@/models";
+import { CopyToClipboard } from "./CopyToClipboard";
+import { EmailResults } from "./EmailResults";
+
+const renderCalc = (calc: NutrientCalc): string => {
+	return JSON.stringify(calc);
+};
 
 export const Results: FC = () => {
 	const params = useSearchParams();
@@ -10,9 +17,17 @@ export const Results: FC = () => {
 	if (typeof soybeanYield != "string") {
 		redirect("/");
 	}
-	let n = Number.parseFloat(soybeanYield);
+	const n = Number.parseFloat(soybeanYield);
 	if (Number.isNaN(n)) {
 		redirect("/");
 	}
-	return <ResultsView soybeanYield={n} />;
+	const calc = calculate_nutrients(n);
+	const text = renderCalc(calc);
+	return (
+		<div className="flex flex-col gap-4">
+			<ResultsView calc={calc} />
+			<CopyToClipboard text={text} />
+			<EmailResults text={text} />
+		</div>
+	);
 };

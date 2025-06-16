@@ -18,7 +18,7 @@ export type Nutrients = {
 	B: NutrientData;
 };
 
-export const totalUptake: Nutrients = {
+const totalUptake: Nutrients = {
 	N: { coefficients: [3.75, +1.94], se: 20.0, r2: 0.8 },
 	P2O5: { coefficients: [0.9, +1.01], se: 6.7, r2: 0.7 },
 	K2O: { coefficients: [2.3, +15.62], se: 23.7, r2: 0.53 },
@@ -32,7 +32,7 @@ export const totalUptake: Nutrients = {
 	B: { coefficients: [0.002, +0.041], se: 0.06, r2: 0.19 },
 };
 
-export const totalRemoval: Nutrients = {
+const totalRemoval: Nutrients = {
 	N: { coefficients: [3.3, -10.35], se: 13.0, r2: 0.89 },
 	P2O5: { coefficients: [0.74, -0.32], se: 2.9, r2: 0.89 },
 	K2O: { coefficients: [1.17, +4.2], se: 3.9, r2: 0.92 },
@@ -46,7 +46,7 @@ export const totalRemoval: Nutrients = {
 	B: { coefficients: [0.001, +0.006], se: 0.03, r2: 0.22 },
 };
 
-export const removalInStover = {
+const removalInStover = {
 	N: { value: 18.8, se: 0.17 },
 	P2O5: { value: 5.1, se: 0.1 },
 	K2O: { value: 38.7, se: 0.47 },
@@ -60,7 +60,7 @@ export const removalInStover = {
 	B: { value: 0.1, se: 0.0001 },
 };
 
-export const nutrientsList = [
+const nutrientsList = [
 	"N",
 	"P2O5",
 	"K2O",
@@ -74,5 +74,27 @@ export const nutrientsList = [
 	"B",
 ] as const;
 
-export const calc_nutrient = (n: NutrientData, y: number): number =>
+const calc_nutrient = (n: NutrientData, y: number): number =>
 	n.coefficients.reduce((cur, x) => x + y * cur, 0);
+
+export type IndividualCalc = [keyof Nutrients, number][];
+
+export type NutrientCalc = {
+	uptake: IndividualCalc;
+	removal: IndividualCalc;
+	stover: IndividualCalc;
+};
+
+export const calculate_nutrients = (y: number): NutrientCalc => ({
+	uptake: nutrientsList.map(
+		(nutrient) =>
+			[nutrient, calc_nutrient(totalUptake[nutrient], y)] as const
+	),
+	removal: nutrientsList.map(
+		(nutrient) =>
+			[nutrient, calc_nutrient(totalRemoval[nutrient], y)] as const
+	),
+	stover: nutrientsList.map(
+		(nutrient) => [nutrient, removalInStover[nutrient].value] as const
+	),
+});
