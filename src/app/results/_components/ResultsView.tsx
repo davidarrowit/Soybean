@@ -2,19 +2,25 @@ import type { FC } from "react";
 
 import { NutrientView } from "./NutrientView";
 
-import type { ModelPredictions } from "@/models";
+import type { Results } from "@/models";
 
 type Props = {
-	calc: ModelPredictions;
+	results: Results;
 };
 
-export const ResultsView: FC<Props> = ({ calc }) => {
+export const ResultsView: FC<Props> = ({ results }) => {
 	return (
 		<div className="flex flex-row gap-8">
-			<NutrientView calc={calc.removal} title="Total Removal (units)" />
-			<NutrientView calc={calc.uptake} title="Total Uptake (units)" />
 			<NutrientView
-				calc={calc.stover}
+				sectionResults={results.removal}
+				title="Total Removal (units)"
+			/>
+			<NutrientView
+				sectionResults={results.uptake}
+				title="Total Uptake (units)"
+			/>
+			<NutrientView
+				sectionResults={results.stover}
 				title="Total Removal in Stover (units)"
 			/>
 		</div>

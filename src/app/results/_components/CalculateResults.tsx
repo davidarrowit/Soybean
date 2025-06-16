@@ -7,28 +7,28 @@ import { CopyToClipboard } from "./CopyToClipboard";
 import { EmailResults } from "./EmailResults";
 import { ResultsView } from "./ResultsView";
 
-import type { ModelPredictions } from "@/models";
+import type { Results } from "@/models";
 import { predict } from "@/models";
 
-const renderCalc = (calc: ModelPredictions): string => {
+const renderResults = (calc: Results): string => {
 	return JSON.stringify(calc);
 };
 
-export const Results: FC = () => {
+export const CalculateResults: FC = () => {
 	const params = useSearchParams();
-	const soybeanYield = params.get("yield");
-	if (typeof soybeanYield !== "string") {
+	const soybeanYieldStr = params.get("yield");
+	if (typeof soybeanYieldStr !== "string") {
 		redirect("/");
 	}
-	const n = Number.parseFloat(soybeanYield);
-	if (Number.isNaN(n)) {
+	const soybeanYield = Number.parseFloat(soybeanYieldStr);
+	if (Number.isNaN(soybeanYield)) {
 		redirect("/");
 	}
-	const calc = predict(n);
-	const text = renderCalc(calc);
+	const results = predict(soybeanYield);
+	const text = renderResults(results);
 	return (
 		<div className="flex flex-col gap-4">
-			<ResultsView calc={calc} />
+			<ResultsView results={results} />
 			<CopyToClipboard text={text} />
 			<EmailResults text={text} />
 		</div>

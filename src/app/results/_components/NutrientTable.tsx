@@ -1,25 +1,19 @@
 import type { FC } from "react";
 
-import type { SectionPredictions } from "@/models";
+import type { SectionResults } from "@/models";
 
 type Props = {
-	calc: SectionPredictions;
+	sectionResults: SectionResults;
 };
 
-export const NutrientTable: FC<Props> = ({ calc }) => {
+export const NutrientTable: FC<Props> = ({ sectionResults }) => {
 	return (
 		<div>
-			{calc.map(([name, value]) =>
-				value >= 0 ? (
-					<div key={name}>
-						{name}: {value.toFixed(3)}
-					</div>
-				) : (
-					<div className="text-red-600" key={name}>
-						{name}: {value.toFixed(3)}
-					</div>
-				),
-			)}
+			{sectionResults.map(([name, value]) => (
+				<div key={name} className={value >= 0 ? "" : "text-red-600"}>
+					{name}: {value.toFixed(3)}
+				</div>
+			))}
 		</div>
 	);
 };

@@ -65,18 +65,18 @@ const removalInStover = {
 const calc_model_prediction = (n: NutrientModel, y: number): number =>
 	n.coefficients.reduce((cur, x) => x + y * cur, 0);
 
-export type SectionPredictions = [Nutrient, number][];
+export type SectionResults = [Nutrient, number][];
 
-export type ModelPredictions = {
-	uptake: SectionPredictions;
-	removal: SectionPredictions;
-	stover: SectionPredictions;
+export type Results = {
+	uptake: SectionResults;
+	removal: SectionResults;
+	stover: SectionResults;
 };
 
-const formatPredictions = (f: (n: Nutrient) => number): SectionPredictions =>
+const formatPredictions = (f: (n: Nutrient) => number): SectionResults =>
 	nutrientsList.map((nutrient) => [nutrient, f(nutrient)] as const);
 
-export const predict = (soybeanYield: number): ModelPredictions => ({
+export const predict = (soybeanYield: number): Results => ({
 	uptake: formatPredictions((n) =>
 		calc_model_prediction(totalUptake[n], soybeanYield),
 	),

@@ -2,18 +2,18 @@ import type { FC } from "react";
 
 import { NutrientTable } from "./NutrientTable";
 
-import type { SectionPredictions } from "@/models";
+import type { SectionResults } from "@/models";
 
 type Props = {
-	calc: SectionPredictions;
+	sectionResults: SectionResults;
 	title: string;
 };
 
-export const NutrientView: FC<Props> = ({ calc, title }) => {
+export const NutrientView: FC<Props> = ({ sectionResults, title }) => {
 	return (
 		<div className="flex flex-col gap-4">
 			{title}
-			<NutrientTable calc={calc} />
+			<NutrientTable sectionResults={sectionResults} />
 		</div>
 	);
 };
