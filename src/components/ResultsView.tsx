@@ -2,10 +2,10 @@ import type { FC } from "react";
 
 import { NutrientView } from "./NutrientView";
 
-import type { NutrientCalc } from "@/models";
+import type { ModelPredictions } from "@/models";
 
 type Props = {
-	calc: NutrientCalc;
+	calc: ModelPredictions;
 };
 
 export const ResultsView: FC<Props> = ({ calc }) => {

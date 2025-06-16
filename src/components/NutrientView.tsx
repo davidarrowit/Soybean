@@ -2,10 +2,10 @@ import type { FC } from "react";
 
 import { NutrientTable } from "./NutrientTable";
 
-import type { IndividualCalc } from "@/models";
+import type { SectionPredictions } from "@/models";
 
 type Props = {
-	calc: IndividualCalc;
+	calc: SectionPredictions;
 	title: string;
 };
 

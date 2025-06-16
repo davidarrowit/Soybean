@@ -1,24 +1,26 @@
-export type NutrientData = {
+const nutrientsList = [
+	"N",
+	"P2O5",
+	"K2O",
+	"S",
+	"Mg",
+	"Ca",
+	"Zn",
+	"Mn",
+	"Cu",
+	"Fe",
+	"B",
+] as const;
+
+type Nutrient = (typeof nutrientsList)[number];
+
+export type NutrientModel = {
 	coefficients: number[];
 	se: number;
 	r2: number;
 };
 
-export type Nutrients = {
-	N: NutrientData;
-	P2O5: NutrientData;
-	K2O: NutrientData;
-	S: NutrientData;
-	Mg: NutrientData;
-	Ca: NutrientData;
-	Zn: NutrientData;
-	Mn: NutrientData;
-	Cu: NutrientData;
-	Fe: NutrientData;
-	B: NutrientData;
-};
-
-const totalUptake: Nutrients = {
+const totalUptake = {
 	N: { coefficients: [3.75, +1.94], se: 20, r2: 0.8 },
 	P2O5: { coefficients: [0.9, +1.01], se: 6.7, r2: 0.7 },
 	K2O: { coefficients: [2.3, +15.62], se: 23.7, r2: 0.53 },
@@ -32,7 +34,7 @@ const totalUptake: Nutrients = {
 	B: { coefficients: [0.002, +0.041], se: 0.06, r2: 0.19 },
 };
 
-const totalRemoval: Nutrients = {
+const totalRemoval = {
 	N: { coefficients: [3.3, -10.35], se: 13, r2: 0.89 },
 	P2O5: { coefficients: [0.74, -0.32], se: 2.9, r2: 0.89 },
 	K2O: { coefficients: [1.17, +4.2], se: 3.9, r2: 0.92 },
@@ -60,39 +62,26 @@ const removalInStover = {
 	B: { value: 0.1, se: 0.0001 },
 };
 
-const nutrientsList = [
-	"N",
-	"P2O5",
-	"K2O",
-	"S",
-	"Mg",
-	"Ca",
-	"Zn",
-	"Mn",
-	"Cu",
-	"Fe",
-	"B",
-] as const;
-
-const calc_nutrient = (n: NutrientData, y: number): number =>
+const calc_model_prediction = (n: NutrientModel, y: number): number =>
 	n.coefficients.reduce((cur, x) => x + y * cur, 0);
 
-export type IndividualCalc = [keyof Nutrients, number][];
+export type SectionPredictions = [Nutrient, number][];
 
-export type NutrientCalc = {
-	uptake: IndividualCalc;
-	removal: IndividualCalc;
-	stover: IndividualCalc;
+export type ModelPredictions = {
+	uptake: SectionPredictions;
+	removal: SectionPredictions;
+	stover: SectionPredictions;
 };
 
-export const calculate_nutrients = (y: number): NutrientCalc => ({
-	uptake: nutrientsList.map(
-		(nutrient) => [nutrient, calc_nutrient(totalUptake[nutrient], y)] as const,
+const formatPredictions = (f: (n: Nutrient) => number): SectionPredictions =>
+	nutrientsList.map((nutrient) => [nutrient, f(nutrient)] as const);
+
+export const predict = (soybeanYield: number): ModelPredictions => ({
+	uptake: formatPredictions((n) =>
+		calc_model_prediction(totalUptake[n], soybeanYield),
 	),
-	removal: nutrientsList.map(
-		(nutrient) => [nutrient, calc_nutrient(totalRemoval[nutrient], y)] as const,
+	removal: formatPredictions((n) =>
+		calc_model_prediction(totalRemoval[n], soybeanYield),
 	),
-	stover: nutrientsList.map(
-		(nutrient) => [nutrient, removalInStover[nutrient].value] as const,
-	),
+	stover: formatPredictions((n) => removalInStover[n].value),
 });
