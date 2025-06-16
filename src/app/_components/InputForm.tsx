@@ -1,7 +1,7 @@
 import Form from "next/form";
 import type { FC } from "react";
 
-import { Button } from "./Button";
+import { Button } from "../../components/Button";
 
 export const InputForm: FC = () => {
 	return (
@@ -16,9 +16,7 @@ export const InputForm: FC = () => {
 				id="yield"
 			/>
 			<br />
-			<Button type="submit">
-				Submit
-			</Button>
+			<Button type="submit">Submit</Button>
 		</Form>
 	);
 };

@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { Suspense, type FC } from "react";
 
+import { Results } from "@/app/results/_components/Results";
 import { Button } from "@/components/Button";
-import { Results } from "@/components/Results";
 
 const ResultsPage: FC = () => {
 	return (
