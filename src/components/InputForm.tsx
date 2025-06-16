@@ -1,10 +1,14 @@
 import Form from "next/form";
 import type { FC } from "react";
 
+import { Button } from "./Button";
+
 export const InputForm: FC = () => {
 	return (
 		<Form action="/results">
-			<label htmlFor="yield" className="hover:cursor-text">Soybean Yield: </label>
+			<label htmlFor="yield" className="hover:cursor-text">
+				Soybean Yield:{" "}
+			</label>
 			<input
 				className="bg-gray-100 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2"
 				type="number"
@@ -12,12 +16,9 @@ export const InputForm: FC = () => {
 				id="yield"
 			/>
 			<br />
-			<button
-				type="submit"
-				className="bg-gray-100 border border-gray-300 hover:bg-gray-200 rounded-lg px-2 py-1 hover:cursor-pointer"
-			>
+			<Button type="submit">
 				Submit
-			</button>
+			</Button>
 		</Form>
 	);
 };

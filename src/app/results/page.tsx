@@ -1,16 +1,19 @@
 import Link from "next/link";
 import { Suspense, type FC } from "react";
 
+import { Button } from "@/components/Button";
 import { Results } from "@/components/Results";
 
 const ResultsPage: FC = () => {
 	return (
-		<>
-			<Link href="/">Back</Link>
+		<div className="m-4 flex flex-col gap-4">
+			<Button>
+				<Link href="/">&larr; Back</Link>
+			</Button>
 			<Suspense fallback={<div>Loading</div>}>
 				<Results />
 			</Suspense>
-		</>
+		</div>
 	);
 };
 
