@@ -2,7 +2,7 @@ import type { FC } from "react";
 
 import { NutrientView } from "./NutrientView";
 
-import type { Results } from "@/models";
+import type { Results } from "@models";
 
 type Props = {
 	results: Results;

@@ -1,6 +1,6 @@
 import type { FC } from "react";
 
-import { Button } from "../../../components/Button";
+import { Button } from "@components/Button";
 
 type Props = {
 	text: string;

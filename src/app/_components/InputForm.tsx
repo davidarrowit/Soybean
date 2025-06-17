@@ -1,7 +1,7 @@
 import Form from "next/form";
 import type { FC } from "react";
 
-import { Button } from "../../components/Button";
+import { Button } from "@components/Button";
 
 export const InputForm: FC = () => {
 	return (

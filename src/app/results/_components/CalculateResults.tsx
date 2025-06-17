@@ -7,8 +7,8 @@ import { CopyToClipboard } from "./CopyToClipboard";
 import { EmailResults } from "./EmailResults";
 import { ResultsView } from "./ResultsView";
 
-import type { Results } from "@/models";
-import { predict } from "@/models";
+import { predict } from "@models";
+import type { Results } from "@models";
 
 const renderResults = (calc: Results): string => {
 	return JSON.stringify(calc);
