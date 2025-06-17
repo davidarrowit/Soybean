@@ -8,10 +8,36 @@ import { EmailResults } from "./EmailResults";
 import { ResultsView } from "./ResultsView";
 
 import { predict } from "@models";
-import type { Results } from "@models";
+import type { Results, SectionResults } from "@models";
 
-const renderResults = (calc: Results): string => {
-	return JSON.stringify(calc);
+const alignLines = (lines: string[], alignMode: boolean): string[] => {
+	const max = Math.max(...lines.map((l) => l.length));
+	return lines.map((l) =>
+		alignMode ? l + " ".repeat(max - l.length) : " ".repeat(max - l.length) + l,
+	);
+};
+
+const renderSection = (section: SectionResults): string => {
+	const names = section.map(([name]) => name);
+	const values = section.map(([, value]) => value.toFixed(3));
+	const alignedValues = alignLines(values, false);
+	return alignLines(names, true)
+		.map((l, i) => l + "\t" + alignedValues[i])
+		.join("\n");
+};
+
+const renderResults = (results: Results): string => {
+	const removal = renderSection(results.removal);
+	const uptake = renderSection(results.uptake);
+	const stover = renderSection(results.stover);
+	return `Total Removal (units):
+${removal}
+
+Total Uptake (units):
+${uptake}
+
+Total Removal in Stover (units):
+${stover}`;
 };
 
 export const CalculateResults: FC = () => {
@@ -27,10 +53,11 @@ export const CalculateResults: FC = () => {
 	const results = predict(soybeanYield);
 	const text = renderResults(results);
 	return (
-		<div className="flex flex-col gap-4">
+		<div className="flex flex-col gap-4 items-start">
 			<ResultsView results={results} />
 			<CopyToClipboard text={text} />
 			<EmailResults text={text} />
+			{/* <pre className="font-mono">{text}</pre> */}
 		</div>
 	);
 };

@@ -8,8 +8,8 @@ type Props = {
 
 export const EmailResults: FC<Props> = ({ text }) => {
 	return (
-		<Button>
-			<a href={`mailto:?body=${text}`}>Email Results</a>
-		</Button>
+		<a href={`mailto:?body=${encodeURIComponent(text)}`}>
+			<Button>Email Results</Button>
+		</a>
 	);
 };
