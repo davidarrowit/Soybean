@@ -54,6 +54,7 @@ export const CalculateResults: FC = () => {
 	const text = renderResults(results);
 	return (
 		<div className="flex flex-col gap-4 items-start">
+			<div className="text-2xl">Yield: {soybeanYield} bu/ac</div>
 			<ResultsView results={results} />
 			<CopyToClipboard text={text} />
 			<EmailResults text={text} />
