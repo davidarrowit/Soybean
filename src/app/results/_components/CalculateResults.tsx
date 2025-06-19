@@ -19,10 +19,11 @@ const alignLines = (lines: string[], alignMode: boolean): string[] => {
 
 const renderSection = (section: SectionResults): string => {
 	const names = section.map(([name]) => name);
-	const values = section.map(([, value]) => value.toFixed(3));
+	const values = section.map(([, value]) => value.value.toFixed(3));
+	const se = section.map(([, value]) => value.se);
 	const alignedValues = alignLines(values, false);
 	return alignLines(names, true)
-		.map((l, i) => l + "\t" + alignedValues[i])
+		.map((l, i) => l + "\t" + alignedValues[i].toString() + " ±" + se[i].toString())
 		.join("\n");
 };
 

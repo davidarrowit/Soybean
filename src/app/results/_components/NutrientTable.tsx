@@ -8,26 +8,23 @@ type Props = {
 
 export const NutrientTable: FC<Props> = ({ sectionResults }) => {
 	const stringified = sectionResults.map(
-		([name, value]) => [name, value.toFixed(3)] as const,
-	);
-	const maxLen = Math.max(...stringified.map((x) => x[1].length));
-	const formatted = stringified.map(
-		([name, value]) =>
-			[name, " ".repeat(maxLen - value.length) + value] as const,
+		([name, value]) => [name, value.value.toFixed(3), value.se] as const,
 	);
 	return (
 		<table className="m-auto">
 			<tbody>
-				{formatted.map(([name, value]) => {
+				{stringified.map(([name, value, se]) => {
 					return (
 						<tr
 							key={name}
-							className={"border-b-2 border-y-slate-400 last:border-none" + (value.startsWith("-") ? " text-red-600" : "")}
+							className={
+								"border-b-2 border-y-slate-400 last:border-none" +
+								(value.startsWith("-") ? " text-red-600" : "")
+							}
 						>
-							<td className="pr-4">{name}</td>
-							<td className="font-mono text-lg">
-								<pre>{value}</pre>
-							</td>
+							<td className="pr-4 py-1">{name}</td>
+							<td className="font-mono text-lg text-right pr-2">{value}</td>
+							<td className="font-mono text-lg">&#177;{se}</td>
 						</tr>
 					);
 				})}
