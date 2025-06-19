@@ -13,15 +13,15 @@ export const ResultsView: FC<Props> = ({ results }) => {
 		<div className="flex flex-row gap-8">
 			<NutrientView
 				sectionResults={results.removal}
-				title="Total Removal (units)"
+				title="Total Removal lbs/ac"
 			/>
 			<NutrientView
 				sectionResults={results.uptake}
-				title="Total Uptake (units)"
+				title="Total Uptake lbs/ac"
 			/>
 			<NutrientView
 				sectionResults={results.stover}
-				title="Total Removal in Stover (units)"
+				title="Total Removal in the Stover (lbs/ton)"
 			/>
 		</div>
 	);

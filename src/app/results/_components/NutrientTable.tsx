@@ -22,7 +22,7 @@ export const NutrientTable: FC<Props> = ({ sectionResults }) => {
 					return (
 						<tr
 							key={name}
-							className={value.startsWith("-") ? "text-red-600" : ""}
+							className={"border-b-2 border-y-slate-400 last:border-none" + (value.startsWith("-") ? " text-red-600" : "")}
 						>
 							<td className="pr-4">{name}</td>
 							<td className="font-mono text-lg">
