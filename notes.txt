@@ -1,0 +1,14 @@
+TODO:
+* get from shawn:
+    favicon
+    disclaimers
+    pictures/logo
+    colors
+    top/bottom nav
+
+* changes to ask shawn:
+    one page (default value, update immediately)
+    more advanced emails
+
+IDEAS:
+* graph
