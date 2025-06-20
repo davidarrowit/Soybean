@@ -153,20 +153,15 @@ const removalInStover = {
 
 const calc_model_prediction = (
 	n: NutrientModel,
-	y: number | undefined,
-): IndividualResult | undefined => {
-	if (y === undefined) {
-		return undefined;
-	}
-	return {
-		value: n.coefficients.reduce((cur, x) => x + y * cur, 0),
-		se: n.se,
-	};
-};
+	y: number,
+): IndividualResult => ({
+	value: n.coefficients.reduce((cur, x) => x + y * cur, 0),
+	se: n.se,
+});
 
 export type IndividualResult = { value: number; se: number };
 
-export type SectionResults = [Nutrient, IndividualResult | undefined][];
+export type SectionResults = [Nutrient, IndividualResult][];
 
 export type Results = {
 	uptake: SectionResults;
@@ -175,11 +170,11 @@ export type Results = {
 };
 
 const formatPredictions = (
-	f: (n: Nutrient) => IndividualResult | undefined,
+	f: (n: Nutrient) => IndividualResult,
 ): SectionResults =>
 	nutrientsList.map((nutrient) => [nutrient, f(nutrient)] as const);
 
-export const predict = (soybeanYield: number | undefined): Results => {
+export const predict = (soybeanYield: number): Results => {
 	return {
 		uptake: formatPredictions((n) =>
 			calc_model_prediction(totalUptake[n], soybeanYield),

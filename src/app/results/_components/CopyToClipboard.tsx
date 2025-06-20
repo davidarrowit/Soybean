@@ -22,6 +22,7 @@ const statusColor = (status: string): string => {
 		}
 	}
 };
+
 const copyTextToClipboard = async (text: string): Promise<void> => {
 	await navigator.clipboard.writeText(text);
 };
