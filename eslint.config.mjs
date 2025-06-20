@@ -91,7 +91,7 @@ export default ts.config(
 		},
 	},
 	{
-		files: ["**/*.js"],
+		files: ["**/*.js", "**/*.mjs", "**/*.cjs"],
 		...ts.configs.disableTypeChecked,
 	},
 	{
