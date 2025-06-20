@@ -7,10 +7,10 @@ import { Button } from "@components/Button";
 
 const ResultsRoot: FC = () => {
 	return (
-		<div className="m-4 flex flex-col gap-4">
-			<Button>
-				<Link href="/">&larr; Back</Link>
-			</Button>
+		<div className="m-4 flex flex-col items-start gap-4">
+			<Link href="/">
+				<Button>&larr; Back</Button>
+			</Link>
 			<Suspense fallback={<div>Loading</div>}>
 				<CalculateResults />
 			</Suspense>

@@ -6,18 +6,21 @@ import { Button } from "@components/Button";
 export const InputForm: FC = () => {
 	return (
 		<Form action="/results">
-			<div className="flex flex-row gap-2 items-center mb-4">
-				<label htmlFor="yield" className="hover:cursor-text text-xl">
-					Soybean Yield:
+			<div className="mb-4 flex flex-col gap-4">
+				<label htmlFor="yield" className="text-xl hover:cursor-text">
+					Enter your yield or yield goal to see what nutrients are removed:
 				</label>
-				<input
-					className="bg-gray-100 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2"
-					type="number"
-					step="any"
-					name="yield"
-					id="yield"
-				/>
-				<span className="text-xl">bu/ac</span>
+				<div className="flex flex-row items-center gap-2">
+					<input
+						className="rounded-lg border border-gray-300 bg-gray-100 p-2 focus:border-blue-500 focus:ring-blue-500"
+						type="number"
+						step="any"
+						required
+						name="yield"
+						id="yield"
+					/>
+					<span className="text-xl">bu/ac</span>
+				</div>
 			</div>
 			<Button type="submit">Submit</Button>
 		</Form>
