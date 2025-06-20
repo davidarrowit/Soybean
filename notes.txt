@@ -9,6 +9,7 @@ TODO:
 * changes to ask shawn:
     one page (default value, update immediately)
     more advanced emails
+    bulleted list for for more information (and shorten link names)
 
 IDEAS:
 * graph

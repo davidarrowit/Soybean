@@ -12,18 +12,21 @@ export const ResultsView: FC<Props> = ({ results }) => {
 	return (
 		<div className="max-w-full snap-x snap-mandatory overflow-x-auto">
 			<div className="flex flex-row gap-8">
-				<SectionView
-					sectionResults={results.uptake}
-					title="Total Uptake (lbs/ac)"
-				/>
-				<SectionView
-					sectionResults={results.removal}
-					title="Total Removal in Grain (lbs/ac)"
-				/>
-				<SectionView
-					sectionResults={results.stover}
-					title="Total Removal in Stover (lbs/ton)"
-				/>
+				<SectionView sectionResults={results.uptake}>
+					Total Uptake
+					<br />
+					(lbs/ac)
+				</SectionView>
+				<SectionView sectionResults={results.removal}>
+					Total Removal in Grain
+					<br />
+					(lbs/ac)
+				</SectionView>
+				<SectionView sectionResults={results.stover}>
+					Total Removal in Stover
+					<br />
+					(lbs/ton)
+				</SectionView>
 			</div>
 		</div>
 	);

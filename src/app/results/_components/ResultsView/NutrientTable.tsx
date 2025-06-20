@@ -15,8 +15,8 @@ export const NutrientTable: FC<Props> = ({ sectionResults }) => {
 				(value < 0 ? " text-red-600" : "")
 			}
 		>
-			<td className="py-1 pr-4">{name}</td>
-			<td className="pr-2 text-right font-mono text-lg">{value.toFixed(3)}</td>
+			<td className="py-1 pr-9">{name}</td>
+			<td className="pr-4 text-right font-mono text-lg">{value.toFixed(3)}</td>
 			<td className="font-mono text-lg">&#177;{se.toFixed(3)}</td>
 		</tr>
 	));
