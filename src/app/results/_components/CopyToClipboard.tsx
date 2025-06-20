@@ -18,7 +18,7 @@ const statusColor = (status: string): string => {
 			return "bg-yellow-100";
 		}
 		default: {
-			return "";
+			return "transition-colors duration-200";
 		}
 	}
 };
@@ -48,7 +48,7 @@ export const CopyToClipboard: FC<Props> = ({ text }) => {
 	};
 	return (
 		<Button className={statusColor(status)} onClick={handleCopy}>
-			Copy Results
+			{status === "good" ? "Copied" : "Copy Results"}
 		</Button>
 	);
 };
