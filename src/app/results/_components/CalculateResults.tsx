@@ -20,7 +20,7 @@ const alignLines = (lines: string[], alignMode: boolean): string[] => {
 const renderSection = (section: SectionResults): string => {
 	const names = section.map(([name]) => name);
 	const values = section.map(([, value]) => value?.value.toFixed(3) ?? "");
-	const se = section.map(([, value]) => value?.se ?? "");
+	const se = section.map(([, value]) => value?.se.toFixed(3) ?? "");
 	const alignedValues = alignLines(values, false);
 	return alignLines(names, true)
 		.map(
