@@ -1,13 +1,11 @@
-import { Suspense, type FC } from "react";
+import type { FC } from "react";
 
-import { CalculateResults } from "./results/_components/CalculateResults";
+import { InputForm } from "./_components/InputForm";
 
 const Home: FC = () => {
 	return (
-		<div className="m-4 flex flex-col gap-4">
-			<Suspense fallback={<div>Loading</div>}>
-				<CalculateResults />
-			</Suspense>
+		<div className="m-4">
+			<InputForm />
 		</div>
 	);
 };

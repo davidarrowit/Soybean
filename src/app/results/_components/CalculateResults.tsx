@@ -1,13 +1,14 @@
 "use client";
 
-import { useState, type FC } from "react";
+import { redirect, useSearchParams } from "next/navigation";
+import type { FC } from "react";
 
 import { CopyToClipboard } from "./CopyToClipboard";
 import { EmailResults } from "./EmailResults";
 import { ResultsView } from "./ResultsView";
 
-import { predict } from "@models";
 import type { Results, SectionResults } from "@models";
+import { predict } from "@models";
 
 const alignLines = (lines: string[], alignMode: boolean): string[] => {
 	const max = Math.max(...lines.map((l) => l.length));
@@ -44,57 +45,20 @@ ${stover}`;
 };
 
 export const CalculateResults: FC = () => {
-	// const params = useSearchParams();
-	// const soybeanYieldStr = params.get("yield");
-	// if (typeof soybeanYieldStr !== "string") {
-	// 	redirect("/");
-	// }
-	// const soybeanYield = Number.parseFloat(soybeanYieldStr);
-	// if (Number.isNaN(soybeanYield)) {
-	// 	redirect("/");
-	// }
-	const [soybeanYield, setSoybeanYield] = useState<number>();
-	const [isValid, setIsValid] = useState(true);
+	const params = useSearchParams();
+	const soybeanYieldStr = params.get("yield");
+	if (typeof soybeanYieldStr !== "string") {
+		redirect("/");
+	}
+	const soybeanYield = Number.parseFloat(soybeanYieldStr);
+	if (Number.isNaN(soybeanYield)) {
+		redirect("/");
+	}
 	const results = predict(soybeanYield);
 	const text = renderResults(results);
 	return (
-		<div className="flex flex-col gap-6 items-start">
-			<div className="flex flex-row gap-2 items-center mb-4">
-				<label htmlFor="yield" className="hover:cursor-text text-xl">
-					Soybean Yield:
-				</label>
-				<div className="relative">
-					<input
-						className={`${isValid ? "bg-gray-100" : "bg-red-100"} border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2`}
-						type="text"
-						name="yield"
-						id="yield"
-						onChange={(e) => {
-							const v = e.target.value;
-							if (v.length === 0) {
-								setIsValid(true);
-								return;
-							}
-							const n = Number.parseFloat(v);
-							if (Number.isNaN(n)) {
-								// invalid
-								setIsValid(false);
-							} else {
-								setIsValid(true);
-								setSoybeanYield(n);
-							}
-						}}
-					/>
-					{isValid ? (
-						<></>
-					) : (
-						<div className="absolute left-0 right-0 mx-auto w-fit mt-1 text-red-600">
-							Please enter a valid number
-						</div>
-					)}
-				</div>
-				<span className="text-xl">bu/ac</span>
-			</div>
+		<div className="flex flex-col items-start gap-6">
+			<div className="text-xl">Yield: {soybeanYield} bu/ac</div>
 			<ResultsView results={results} />
 			<CopyToClipboard text={text} />
 			<EmailResults text={text} />
