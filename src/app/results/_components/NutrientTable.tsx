@@ -8,7 +8,7 @@ type Props = {
 
 export const NutrientTable: FC<Props> = ({ sectionResults }) => {
 	const stringified = sectionResults.map(
-		([name, value]) => [name, value.value.toFixed(3), value.se] as const,
+		([name, value]) => [name, value.value.toFixed(3), value.se.toFixed(3)] as const,
 	);
 	return (
 		<table className="m-auto">
