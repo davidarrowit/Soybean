@@ -10,8 +10,8 @@ type Props = {
 
 export const ResultsView: FC<Props> = ({ results }) => {
 	return (
-		<div className="max-w-full snap-x snap-mandatory overflow-x-auto">
-			<div className="flex flex-row gap-8">
+		<div className="w-full snap-x snap-mandatory overflow-x-auto">
+			<div className="flex w-full flex-row gap-8">
 				<SectionView sectionResults={results.uptake}>
 					Total Uptake
 					<br />
