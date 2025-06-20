@@ -8,7 +8,12 @@ type Props = {
 
 export const NutrientTable: FC<Props> = ({ sectionResults }) => {
 	const stringified = sectionResults.map(
-		([name, value]) => [name, value?.value.toFixed(3) ?? "", value?.se.toFixed(3) ?? ""] as const,
+		([name, value]) =>
+			[
+				name,
+				value?.value.toFixed(3) ?? "",
+				value?.se.toFixed(3) ?? "",
+			] as const,
 	);
 	return (
 		<table className="m-auto">
@@ -22,8 +27,8 @@ export const NutrientTable: FC<Props> = ({ sectionResults }) => {
 								(value.startsWith("-") ? " text-red-600" : "")
 							}
 						>
-							<td className="pr-4 py-1">{name}</td>
-							<td className="font-mono text-lg text-right pr-2">{value}</td>
+							<td className="py-1 pr-4">{name}</td>
+							<td className="pr-2 text-right font-mono text-lg">{value}</td>
 							<td className="font-mono text-lg">&#177;{se}</td>
 						</tr>
 					);

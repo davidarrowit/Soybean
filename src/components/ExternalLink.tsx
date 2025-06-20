@@ -6,5 +6,13 @@ type Props = DetailedHTMLProps<
 >;
 
 export const ExternalLink: FC<Props> = ({ className, ...rest }) => {
-	return <a {...rest} className={"text-blue-400 underline hover:cursor-pointer visited:text-purple-500 " + (className ?? "")}></a>;
+	return (
+		<a
+			{...rest}
+			className={
+				"text-blue-400 underline visited:text-purple-500 hover:cursor-pointer " +
+				(className ?? "")
+			}
+		></a>
+	);
 };
