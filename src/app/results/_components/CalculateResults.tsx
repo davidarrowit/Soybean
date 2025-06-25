@@ -62,14 +62,16 @@ export const CalculateResults: FC = () => {
 	const results = predict(soybeanYield);
 	const text = renderResults(results);
 	return (
-		<div className="flex flex-col items-start gap-6">
+		<div className="flex flex-col items-start gap-4">
 			<div className="text-xl">
 				For your yield of {soybeanYield} bu/a these are the nutrient removal
 				rates:
 			</div>
 			<ResultsView results={results} />
-			<CopyToClipboard text={text} />
-			<EmailResults text={text} />
+			<div className="flex flex-row gap-4">
+				<CopyToClipboard text={text} />
+				<EmailResults text={text} />
+			</div>
 			{/* <pre className="font-mono">{text}</pre> */}
 		</div>
 	);

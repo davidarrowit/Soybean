@@ -10,6 +10,8 @@
 	--color-foreground: var(--foreground);
 	--font-sans: sans-serif;
 	--font-mono: monospace;
+	--color-primary: #bc2026;
+	--color-interact: #63717f;
 }
 
 body {

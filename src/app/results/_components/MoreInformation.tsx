@@ -4,9 +4,9 @@ import { ExternalLink } from "@components/ExternalLink";
 
 export const MoreInformation: FC = () => {
 	return (
-		<p>
-			For more information, consult:
-			<ul className="mt-2 ml-4 list-inside list-disc space-y-1">
+		<div className="mt-4">
+			<p>For more information, consult:</p>
+			<ul className="ml-4 list-inside list-disc space-y-1">
 				<li>
 					<ExternalLink
 						target="_blank"
@@ -34,6 +34,6 @@ export const MoreInformation: FC = () => {
 					</ExternalLink>
 				</li>
 			</ul>
-		</p>
+		</div>
 	);
 };

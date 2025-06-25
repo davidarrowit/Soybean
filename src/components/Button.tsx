@@ -10,8 +10,8 @@ export const Button: FC<Props> = ({ children, className, ...rest }) => {
 		<button
 			{...rest}
 			className={
-				"w-fit rounded-lg border border-gray-300 bg-gray-100 px-4 py-2 hover:cursor-pointer hover:bg-gray-200 " +
-				(className ?? "")
+				(className?.concat(" ") ?? "") +
+				"bg-primary hover:bg-interact w-fit px-4 py-2 text-white transition-colors duration-200 hover:cursor-pointer"
 			}
 		>
 			{children}

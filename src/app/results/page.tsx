@@ -8,9 +8,9 @@ import { Button } from "@components/Button";
 
 const ResultsRoot: FC = () => {
 	return (
-		<div className="mx-auto my-8 flex max-w-7xl flex-col gap-4 px-8">
+		<div className="mx-auto my-8 flex max-w-7xl flex-col gap-8 px-8">
 			<Link href="/" className="w-fit">
-				<Button>&larr; Back</Button>
+				<Button>Change Yield</Button>
 			</Link>
 			<Suspense fallback={<div>Loading</div>}>
 				<CalculateResults />

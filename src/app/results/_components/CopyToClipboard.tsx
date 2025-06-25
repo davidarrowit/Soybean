@@ -6,23 +6,6 @@ type Props = {
 	text: string;
 };
 
-const statusColor = (status: string): string => {
-	switch (status) {
-		case "good": {
-			return "bg-green-100";
-		}
-		case "bad": {
-			return "bg-red-100";
-		}
-		case "inprogress": {
-			return "bg-yellow-100";
-		}
-		default: {
-			return "transition-colors duration-200";
-		}
-	}
-};
-
 const copyTextToClipboard = async (text: string): Promise<void> => {
 	await navigator.clipboard.writeText(text);
 };
@@ -48,8 +31,12 @@ export const CopyToClipboard: FC<Props> = ({ text }) => {
 			});
 	};
 	return (
-		<Button className={statusColor(status)} onClick={handleCopy}>
-			{status === "good" ? "Copied" : "Copy Results"}
+		<Button onClick={handleCopy}>
+			{status === "good" ?
+				"Copied"
+			: status === "bad" ?
+				"Copy Failed"
+			:	"Copy Results"}
 		</Button>
 	);
 };
