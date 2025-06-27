@@ -19,7 +19,7 @@ export const InputForm: FC = () => {
 						name="yield"
 						id="yield"
 					/>
-					<span className="text-xl">bu/ac</span>
+					<span className="text-xl">bu/a</span>
 				</div>
 			</div>
 			<Button type="submit">Submit</Button>

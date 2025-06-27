@@ -13,14 +13,14 @@ export const ResultsView: FC<Props> = ({ results }) => {
 		<div className="w-full snap-x snap-mandatory overflow-x-auto">
 			<div className="flex w-full flex-row gap-8">
 				<SectionView sectionResults={results.uptake}>
-					Total Uptake
+					Total Uptake<sup>1</sup>
 					<br />
-					(lbs/ac)
+					(lbs/a)
 				</SectionView>
 				<SectionView sectionResults={results.removal}>
 					Total Removal in Grain
 					<br />
-					(lbs/ac)
+					(lbs/a)
 				</SectionView>
 				<SectionView sectionResults={results.stover}>
 					Total Removal in Stover

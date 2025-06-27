@@ -64,13 +64,17 @@ export const CalculateResults: FC = () => {
 	return (
 		<div className="flex flex-col items-start gap-4">
 			<div className="text-xl">
-				For your yield of {soybeanYield} bu/a these are the nutrient removal
-				rates:
+				For your yield of {soybeanYield} bu/a, these are your uptake and removal
+				rates
 			</div>
 			<ResultsView results={results} />
 			<div className="flex flex-row gap-4">
 				<CopyToClipboard text={text} />
 				<EmailResults text={text} />
+			</div>
+			<div>
+				<sup>1</sup>Estimated Total Seasonal Nutrient Uptake in Above-Ground
+				Biomass
 			</div>
 			{/* <pre className="font-mono">{text}</pre> */}
 		</div>
