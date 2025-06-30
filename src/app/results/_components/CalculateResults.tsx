@@ -9,31 +9,20 @@ import { ResultsView } from "./ResultsView/ResultsView";
 
 import type { Results, SectionResults } from "@models";
 import { predict } from "@models";
-
-const alignLines = (lines: string[], leftAlign: boolean): string[] => {
-	const max = Math.max(...lines.map((l) => l.length));
-	return lines.map((l) =>
-		leftAlign ? l + " ".repeat(max - l.length) : " ".repeat(max - l.length) + l,
-	);
-};
+import { alignLines, pad } from "@utils";
 
 const renderSection = (section: SectionResults): string => {
 	const names = section.data.map(({ nutrient }) => nutrient);
-	const values = section.data.map(
-		({ value, decimals }) =>
-			value.toFixed(decimals) + " ".repeat(section.maxDecimals - decimals),
+	const values = section.data.map(({ value, decimals }) =>
+		pad(value.toFixed(decimals), section.maxDecimals - decimals, false),
 	);
-	const se = section.data.map(
-		({ se, decimals }) =>
-			se.toFixed(decimals) + " ".repeat(section.maxDecimals - decimals),
+	const se = section.data.map(({ se, decimals }) =>
+		pad(se.toFixed(decimals), section.maxDecimals - decimals, false),
 	);
 	const alignedValues = alignLines(values, false);
 	const alignedSe = alignLines(se, false);
 	return alignLines(names, true)
-		.map(
-			(l, i) =>
-				l + "\t" + alignedValues[i].toString() + " ±" + alignedSe[i].toString(),
-		)
+		.map((l, i) => `${l}\t${alignedValues[i]} ±${alignedSe[i]}`)
 		.join("\n");
 };
 

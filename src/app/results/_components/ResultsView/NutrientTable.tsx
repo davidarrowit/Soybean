@@ -1,6 +1,7 @@
 import type { FC, ReactNode } from "react";
 
 import type { Nutrient, SectionResults } from "@models";
+import { pad } from "@utils";
 
 type Props = {
 	sectionResults: SectionResults;
@@ -40,13 +41,22 @@ export const NutrientTable: FC<Props> = ({ sectionResults }) => {
 			<td className="py-1 pr-9">{nameRenders[nutrient]}</td>
 			<td className="pr-4 text-right font-mono text-lg">
 				<pre>
-					{value.toFixed(decimals) +
-						" ".repeat(sectionResults.maxDecimals - decimals)}
+					{pad(
+						value.toFixed(decimals),
+						sectionResults.maxDecimals - decimals,
+						false,
+					)}
 				</pre>
 			</td>
 			<td>&#177;</td>
 			<td className="text-right font-mono text-lg">
-				<pre>{se.toFixed(decimals) + " ".repeat(sectionResults.maxDecimals - decimals)}</pre>
+				<pre>
+					{pad(
+						se.toFixed(decimals),
+						sectionResults.maxDecimals - decimals,
+						false,
+					)}
+				</pre>
 			</td>
 		</tr>
 	));
