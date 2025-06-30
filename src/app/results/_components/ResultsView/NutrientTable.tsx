@@ -1,25 +1,53 @@
-import type { FC } from "react";
+import type { FC, ReactNode } from "react";
 
-import type { SectionResults } from "@models";
+import type { Nutrient, SectionResults } from "@models";
 
 type Props = {
 	sectionResults: SectionResults;
 };
 
+const nameRenders: Record<Nutrient, ReactNode> = {
+	N: "N",
+	P2O5: (
+		<>
+			P<sub>2</sub>O<sub>5</sub>
+		</>
+	),
+	K2O: (
+		<>
+			K<sub>2</sub>O
+		</>
+	),
+	S: "S",
+	Mg: "Mg",
+	Ca: "Ca",
+	Zn: "Zn",
+	Mn: "Mn",
+	Cu: "Cu",
+	Fe: "Fe",
+	B: "B",
+};
+
 export const NutrientTable: FC<Props> = ({ sectionResults }) => {
-	const rows = sectionResults.map(([name, { value, se, decimals }]) => (
+	const rows = sectionResults.data.map(({ nutrient, value, se, decimals }) => (
 		<tr
-			key={name}
+			key={nutrient}
 			className={
 				"border-b-2 border-y-slate-400 last:border-none" +
 				(value < 0 ? " text-red-600" : "")
 			}
 		>
-			<td className="py-1 pr-9">{name}</td>
+			<td className="py-1 pr-9">{nameRenders[nutrient]}</td>
 			<td className="pr-4 text-right font-mono text-lg">
-				<pre>{value.toFixed(decimals) + " ".repeat(3 - decimals)}</pre>
+				<pre>
+					{value.toFixed(decimals) +
+						" ".repeat(sectionResults.maxDecimals - decimals)}
+				</pre>
 			</td>
-			<td className="font-mono text-lg">&#177;{se.toFixed(decimals)}</td>
+			<td>&#177;</td>
+			<td className="text-right font-mono text-lg">
+				<pre>{se.toFixed(decimals) + " ".repeat(sectionResults.maxDecimals - decimals)}</pre>
+			</td>
 		</tr>
 	));
 
@@ -29,7 +57,9 @@ export const NutrientTable: FC<Props> = ({ sectionResults }) => {
 				<tr>
 					<td></td>
 					<td></td>
-					<td>SE (+/-)</td>
+					<td className="text-center" colSpan={2}>
+						SE (&#177;)
+					</td>
 				</tr>
 				{rows}
 			</tbody>

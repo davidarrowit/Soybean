@@ -1,4 +1,5 @@
 /* eslint-disable unicorn/numeric-separators-style */
+
 const nutrientsList = [
 	"N",
 	"P2O5",
@@ -13,7 +14,7 @@ const nutrientsList = [
 	"B",
 ] as const;
 
-type Nutrient = (typeof nutrientsList)[number];
+export type Nutrient = (typeof nutrientsList)[number];
 
 export type NutrientModel = {
 	coefficients: number[];
@@ -174,17 +175,20 @@ const removalInStover = {
 	B: { value: 0.0505529504873, se: 0.000571411958452, decimals: 3 },
 };
 
-const calc_model_prediction = (
-	n: NutrientModel,
-	y: number,
-): IndividualResult => ({
-	...n,
-	value: n.coefficients.reduce((cur, x) => x + y * cur, 0),
-});
+const calc_model_prediction = (coefficients: number[], y: number): number =>
+	coefficients.reduce((cur, x) => x + y * cur, 0);
 
-export type IndividualResult = { value: number; se: number; decimals: number };
+export type IndividualResult = {
+	nutrient: Nutrient;
+	value: number;
+	se: number;
+	decimals: number;
+};
 
-export type SectionResults = [Nutrient, IndividualResult][];
+export type SectionResults = {
+	data: IndividualResult[];
+	maxDecimals: number;
+};
 
 export type Results = {
 	uptake: SectionResults;
@@ -193,18 +197,25 @@ export type Results = {
 };
 
 const formatPredictions = (
-	f: (n: Nutrient) => IndividualResult,
-): SectionResults =>
-	nutrientsList.map((nutrient) => [nutrient, f(nutrient)] as const);
+	f: (n: Nutrient) => Omit<IndividualResult, "nutrient">,
+): SectionResults => {
+	const data = nutrientsList.map((nutrient) => ({ nutrient, ...f(nutrient) }));
+	return {
+		data,
+		maxDecimals: Math.max(...data.map((result) => result.decimals)),
+	};
+};
 
 export const predict = (soybeanYield: number): Results => {
 	return {
-		uptake: formatPredictions((n) =>
-			calc_model_prediction(totalUptake[n], soybeanYield),
-		),
-		removal: formatPredictions((n) =>
-			calc_model_prediction(totalRemoval[n], soybeanYield),
-		),
+		uptake: formatPredictions((n) => ({
+			...totalUptake[n],
+			value: calc_model_prediction(totalUptake[n].coefficients, soybeanYield),
+		})),
+		removal: formatPredictions((n) => ({
+			...totalRemoval[n],
+			value: calc_model_prediction(totalRemoval[n].coefficients, soybeanYield),
+		})),
 		stover: formatPredictions((n) => removalInStover[n]),
 	};
 };

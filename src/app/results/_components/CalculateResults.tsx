@@ -10,22 +10,29 @@ import { ResultsView } from "./ResultsView/ResultsView";
 import type { Results, SectionResults } from "@models";
 import { predict } from "@models";
 
-const alignLines = (lines: string[], alignMode: boolean): string[] => {
+const alignLines = (lines: string[], leftAlign: boolean): string[] => {
 	const max = Math.max(...lines.map((l) => l.length));
 	return lines.map((l) =>
-		alignMode ? l + " ".repeat(max - l.length) : " ".repeat(max - l.length) + l,
+		leftAlign ? l + " ".repeat(max - l.length) : " ".repeat(max - l.length) + l,
 	);
 };
 
 const renderSection = (section: SectionResults): string => {
-	const names = section.map(([name]) => name);
-	const values = section.map(([, value]) => value.value.toFixed(3));
-	const se = section.map(([, value]) => value.se.toFixed(3));
+	const names = section.data.map(({ nutrient }) => nutrient);
+	const values = section.data.map(
+		({ value, decimals }) =>
+			value.toFixed(decimals) + " ".repeat(section.maxDecimals - decimals),
+	);
+	const se = section.data.map(
+		({ se, decimals }) =>
+			se.toFixed(decimals) + " ".repeat(section.maxDecimals - decimals),
+	);
 	const alignedValues = alignLines(values, false);
+	const alignedSe = alignLines(se, false);
 	return alignLines(names, true)
 		.map(
 			(l, i) =>
-				l + "\t" + alignedValues[i].toString() + " ±" + se[i].toString(),
+				l + "\t" + alignedValues[i].toString() + " ±" + alignedSe[i].toString(),
 		)
 		.join("\n");
 };
@@ -34,13 +41,13 @@ const renderResults = (results: Results): string => {
 	const removal = renderSection(results.removal);
 	const uptake = renderSection(results.uptake);
 	const stover = renderSection(results.stover);
-	return `Total Removal (units):
-${removal}
-
-Total Uptake (units):
+	return `Total Uptake (lbs/a):
 ${uptake}
 
-Total Removal in Stover (units):
+Total Removal (lbs/a):
+${removal}
+
+Total Removal in Stover (lbs/ton):
 ${stover}`;
 };
 
