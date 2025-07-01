@@ -1,4 +1,4 @@
-import { useState, type FC } from "react";
+import { useEffect, useRef, useState, type FC } from "react";
 
 import { Button } from "@components/Button";
 
@@ -10,28 +10,39 @@ const copyTextToClipboard = async (text: string): Promise<void> => {
 	await navigator.clipboard.writeText(text);
 };
 
+const RESET_DELAY = 1000;
+
 export const CopyToClipboard: FC<Props> = ({ text }) => {
-	const [status, setStatus] = useState<"none" | "good" | "bad" | "inprogress">(
-		"none",
-	);
+	const [status, setStatus] = useState<"none" | "good" | "bad">("none");
+	const buttonRef = useRef<HTMLButtonElement>(null);
+
+	useEffect(() => {
+		if (buttonRef.current === null) {
+			return;
+		}
+		const width = buttonRef.current.getBoundingClientRect().width;
+		buttonRef.current.style.width = `${width}px`;
+	}, []);
+
 	const handleCopy = (): void => {
-		setStatus("inprogress");
 		copyTextToClipboard(text)
 			.then(() => {
 				setStatus("good");
 				setTimeout(() => {
 					setStatus("none");
-				}, 1000);
+				}, RESET_DELAY);
 			})
-			.catch(() => {
+			.catch((error: unknown) => {
+				console.error("Copy Failed:");
+				console.error(error);
 				setStatus("bad");
 				setTimeout(() => {
 					setStatus("none");
-				}, 1000);
+				}, RESET_DELAY);
 			});
 	};
 	return (
-		<Button onClick={handleCopy}>
+		<Button onClick={handleCopy} ref={buttonRef}>
 			{status === "good" ?
 				"Copied"
 			: status === "bad" ?

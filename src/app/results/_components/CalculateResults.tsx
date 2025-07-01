@@ -42,7 +42,7 @@ export const CalculateResults: FC = () => {
 				<sup>1</sup>Estimated Total Seasonal Nutrient Uptake in Above-Ground
 				Biomass
 			</div>
-			<pre className="font-mono">{text}</pre>
+			{/* <pre className="font-mono">{text}</pre> */}
 		</div>
 	);
 };
