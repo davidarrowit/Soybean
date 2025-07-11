@@ -1,6 +1,3 @@
-"use client";
-
-import { redirect, useSearchParams } from "next/navigation";
 import type { FC } from "react";
 
 import { CopyToClipboard } from "./CopyToClipboard";
@@ -10,21 +7,11 @@ import { ResultsView } from "./ResultsView/ResultsView";
 import { predict } from "@models";
 import { renderResults } from "@resultsTextRenderer";
 
-const useYield = (): number => {
-	const params = useSearchParams();
-	const soybeanYieldStr = params.get("yield");
-	if (typeof soybeanYieldStr !== "string") {
-		redirect("/");
-	}
-	const soybeanYield = Number.parseFloat(soybeanYieldStr);
-	if (Number.isNaN(soybeanYield)) {
-		redirect("/");
-	}
-	return soybeanYield;
+type Props = {
+	soybeanYield: number;
 };
 
-export const CalculateResults: FC = () => {
-	const soybeanYield = useYield();
+export const CalculateResults: FC<Props> = ({ soybeanYield }) => {
 	const results = predict(soybeanYield);
 	const text = renderResults(results);
 	return (

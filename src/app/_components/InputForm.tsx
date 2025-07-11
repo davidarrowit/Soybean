@@ -1,11 +1,20 @@
-import Form from "next/form";
-import type { FC } from "react";
+import { type Dispatch, type SetStateAction, type FC, useState } from "react";
 
 import { Button } from "@components/Button";
 
-export const InputForm: FC = () => {
+type Props = {
+	setSoybeanYield: Dispatch<SetStateAction<number | undefined>>;
+};
+
+export const InputForm: FC<Props> = ({ setSoybeanYield }) => {
+	const [text, setText] = useState("");
+
 	return (
-		<Form action="/results">
+		<form
+			onSubmit={() => {
+				setSoybeanYield(Number.parseFloat(text));
+			}}
+		>
 			<div className="mb-4 flex flex-col gap-4">
 				<label htmlFor="yield" className="text-xl hover:cursor-text">
 					Enter your yield or yield goal to see what nutrients are removed:
@@ -18,11 +27,14 @@ export const InputForm: FC = () => {
 						required
 						name="yield"
 						id="yield"
+						onChange={(e) => {
+							setText(e.target.value);
+						}}
 					/>
 					<span className="text-xl">bu/a</span>
 				</div>
 			</div>
 			<Button type="submit">Submit</Button>
-		</Form>
+		</form>
 	);
 };

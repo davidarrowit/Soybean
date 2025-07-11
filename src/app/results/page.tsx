@@ -13,7 +13,7 @@ const ResultsRoot: FC = () => {
 				<Button>Change Yield</Button>
 			</Link>
 			<Suspense fallback={<div>Loading</div>}>
-				<CalculateResults />
+				{/* <CalculateResults /> */}
 			</Suspense>
 			<MoreInformation />
 		</div>
