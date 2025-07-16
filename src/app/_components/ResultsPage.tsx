@@ -12,7 +12,7 @@ type Props = {
 
 export const ResultsPage: FC<Props> = ({ soybeanYield, setSoybeanYield }) => {
 	return (
-		<div className="mx-auto my-8 flex max-w-7xl flex-col gap-8 px-8">
+		<div className="mx-auto flex max-w-7xl flex-col gap-8 p-4">
 			<Button
 				className="w-fit"
 				onClick={() => {
