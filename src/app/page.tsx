@@ -8,9 +8,7 @@ import { ResultsPage } from "./_components/ResultsPage";
 const Home: FC = () => {
 	const [soybeanYield, setSoybeanYield] = useState<number>();
 	return soybeanYield === undefined ?
-			<div className="m-4">
-				<InputForm setSoybeanYield={setSoybeanYield} />
-			</div>
+			<InputForm setSoybeanYield={setSoybeanYield} />
 		:	<ResultsPage
 				soybeanYield={soybeanYield}
 				setSoybeanYield={setSoybeanYield}
