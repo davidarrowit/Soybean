@@ -19,9 +19,28 @@ export const MoreInformation: FC = () => {
 				<li>
 					<ExternalLink
 						target="_blank"
-						href="https://coolbean.info/library/documents/55586_03WINutrientGuide5.5x8.5_NoBleed_HR_FINAL.pdf"
+						href="https://badgercropnetwork.com/resources/research/soybeans/2017/55586_03WINutrientGuide5.5x8.5_NoBleed_HR_FINAL.pdf"
 					>
-						55586_03 WI Nutrient Guide 5.5x8.5.indd
+						Understanding Nutrient Requirements and Utilization for High
+						Yielding Soybeans
+					</ExternalLink>
+				</li>
+				<li>
+					<ExternalLink
+						target="_blank"
+						href="https://acsess.onlinelibrary.wiley.com/doi/10.2135/cropsci2016.05.0322"
+					>
+						Dry Matter and Nitrogen Uptake, Partitioning, and Removal across a
+						Wide Range of Soybean Seed Yield Levels | Crop Science
+					</ExternalLink>
+				</li>
+				<li>
+					<ExternalLink
+						target="_blank"
+						href="https://acsess.onlinelibrary.wiley.com/doi/10.2135/cropsci2016.05.0378"
+					>
+						Phosphorus and Potassium Uptake, Partitioning, and Removal across a
+						Wide Range of Soybean Seed Yield Levels | Crop Science
 					</ExternalLink>
 				</li>
 				<li>
